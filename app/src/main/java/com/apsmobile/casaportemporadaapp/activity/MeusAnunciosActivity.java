@@ -111,6 +111,8 @@ public class MeusAnunciosActivity extends AppCompatActivity implements AdapterAn
                     }
                     text_info.setText("");
                 } else {
+                    anuncioList.clear();
+                    adapterAnuncios.notifyDataSetChanged();
                     text_info.setText("Nenhum anúncio cadatrado.");
                 }
 
