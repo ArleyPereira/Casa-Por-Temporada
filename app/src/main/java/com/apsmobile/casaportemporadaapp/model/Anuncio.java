@@ -37,11 +37,11 @@ public class Anuncio implements Serializable {
     }
 
     public void deletar(){
-        DatabaseReference reference = FirebaseHelper.getDatabaseReference()
+        DatabaseReference anuncioPrivadoRef = FirebaseHelper.getDatabaseReference()
                 .child("anuncios")
                 .child(FirebaseHelper.getIdFirebase())
                 .child(this.getId());
-        reference.removeValue().addOnCompleteListener(task -> {
+        anuncioPrivadoRef.removeValue().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 StorageReference storageReference = FirebaseHelper.getStorageReference()
                         .child("imagens")
@@ -50,6 +50,11 @@ public class Anuncio implements Serializable {
                 storageReference.delete();
             }
         });
+
+        DatabaseReference anuncioPublicoRef = FirebaseHelper.getDatabaseReference()
+                .child("anuncios_publicos")
+                .child(this.getId());
+        anuncioPublicoRef.removeValue();
     }
 
     public String getId() {
