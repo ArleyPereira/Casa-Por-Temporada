@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements AdapterAnuncios.O
     private void recuperaAnuncios() {
         DatabaseReference reference = FirebaseHelper.getDatabaseReference()
                 .child("anuncios_publicos");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements AdapterAnuncios.O
                     }
                     text_info.setText("");
                 } else {
+                    anuncioList.clear();
+                    adapterAnuncios.notifyDataSetChanged();
                     text_info.setText("Nenhum anúncio cadastrado.");
                 }
 
